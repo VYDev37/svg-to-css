@@ -22,7 +22,7 @@ export default function CodeOutput({ items }: CodeOutputProps) {
 
             if (mode === 'css') {
                 const cls = item.className.startsWith('.') ? item.className : `.${item.className}`;
-                return `${cls} {\n  background-image: url('${item.dataUrl}');\n}`;
+                return `${cls} {\n  background-image: url("${item.dataUrl}");\n}`;
             }
 
             const isTailwind = mode.includes('tailwind');
