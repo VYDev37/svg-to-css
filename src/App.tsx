@@ -22,7 +22,7 @@ export default function App() {
                     <div key={item.id} className="flex items-center gap-3 bg-zinc-900/50 p-3 rounded-lg border border-zinc-800">
                       {/* Mini Preview */}
                       <div className="w-8 h-8 bg-zinc-800 rounded flex-shrink-0 bg-no-repeat bg-center bg-contain"
-                        style={{ backgroundImage: `url('${item.dataUrl}')` }} />
+                        style={{ backgroundImage: `url("${item.dataUrl}")` }} />
                       {/* Input ClassName */}
                       <input type="text" value={item.className} onChange={(e) => updateClassName(item.id, e.target.value)}
                         className="flex-1 bg-zinc-950 border border-zinc-700 rounded px-2 py-1 text-sm font-mono focus:border-indigo-500 focus:outline-none" />

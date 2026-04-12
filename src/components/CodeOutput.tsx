@@ -85,7 +85,7 @@ export default function CodeOutput({ items }: CodeOutputProps) {
                                     <span className="text-indigo-400">
                                         {item.className.startsWith('.') ? item.className : `.${item.className}`}
                                     </span> {'{\n'}
-                                    <span className="text-cyan-400">  background-image</span>: url(<span className="text-emerald-400/80 break-all whitespace-pre-wrap">'{item.dataUrl}'</span>);{'\n}'}
+                                    <span className="text-cyan-400">  background-image</span>: url(<span className="text-emerald-400/80 break-all whitespace-pre-wrap">"{item.dataUrl}"</span>);{'\n}'}
                                 </pre>
                             ) : (
                                 <pre className="text-sm font-mono leading-relaxed text-zinc-400 break-all whitespace-pre-wrap">
