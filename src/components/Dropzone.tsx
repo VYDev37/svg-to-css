@@ -24,14 +24,16 @@ export default function DropZone({ onFilesLoad }: DropZoneProps) {
                 <FileDown className={`w-6 h-6 transition-colors ${isHovering ? "text-indigo-400" : "text-zinc-400"}`} />
             </div>
             <div className="text-center">
-                <p className="text-zinc-300 font-medium">Drag & drop SVGs here</p>
+                <p className="text-zinc-300 font-medium">Drag & drop images or SVGs here</p>
                 <p className="text-sm text-zinc-500 mt-1">Accepts multiple files</p>
             </div>
 
-            <input type="file" multiple accept=".svg, image/svg+xml" className="hidden" id="file-upload"
+            <input type="file" multiple accept=".svg, .png, .jpg, .jpeg, image/svg+xml, image/png, image/jpeg" className="hidden" id="file-upload"
                 onChange={(e) => {
-                    if (e.target.files)
+                    if (e.target.files) {
                         onFilesLoad(Array.from(e.target.files));
+                        e.target.value = "";
+                    }
                 }}
             />
             <label htmlFor="file-upload" className="absolute inset-0 cursor-pointer" />

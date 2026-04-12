@@ -12,7 +12,7 @@ export default function Header() {
                 SVG to CSS <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">DataURL</span>
             </h1>
             <p className="text-zinc-400 max-w-xl mx-auto text-lg my-5">
-                Easily convert raw SVGs to optimal CSS background-image attributes. Drag and drop or paste your code.
+                Easily convert image / raw SVGs to optimal CSS background-image attributes. Drag and drop or paste your code.
             </p>
         </div>
     );

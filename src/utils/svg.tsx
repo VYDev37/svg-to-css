@@ -1,3 +1,5 @@
+import ImageTracer from 'imagetracerjs';
+
 export function createSVGDataURL(svgContent: string): string {
     const cleanedSvg = svgContent
         .replace(/(\r\n|\n|\r)/gm, "")
@@ -47,3 +49,30 @@ export function convertToInline(svgContent: string, isJsx: boolean = false, defa
 
     return cleaned.replace(/<svg/, `<svg ${defaultClass ? `class="${defaultClass}"` : `style="${defaultStyle}"`}`);
 }
+
+export const convertImageToSvg = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const dataUrl = e.target?.result as string;
+            try {
+                ImageTracer.imageToSVG(
+                    dataUrl,
+                    (svgString: string) => {
+                        if (!svgString) {
+                            reject(new Error("SVG generation returned empty string"));
+                            return;
+                        }
+                        resolve(svgString);
+                    },
+                    { ltres: 0.1, qtres: 1, scale: 10, strokewidth: 5 }
+                );
+            } catch (err) {
+                console.error(err);
+                reject(err);
+            }
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+};
