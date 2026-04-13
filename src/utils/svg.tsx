@@ -1,3 +1,5 @@
+import { ImageTracerBrowser } from '@image-tracer-ts/browser';
+
 export function createSVGDataURL(svgContent: string): string {
     const cleanedSvg = svgContent
         .replace(/(\r\n|\n|\r)/gm, "")
@@ -47,3 +49,19 @@ export function convertToInline(svgContent: string, isJsx: boolean = false, defa
 
     return cleaned.replace(/<svg/, `<svg ${defaultClass ? `class="${defaultClass}"` : `style="${defaultStyle}"`}`);
 }
+
+export const convertImageToSvg = async (file: File): Promise<string> => {
+    try {
+        const svgString = await ImageTracerBrowser.fromFile(file, {
+            numberOfColors: 16,
+            viewBox: true,
+            scale: 1,
+            lineFilter: true
+        });
+
+        return svgString
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
