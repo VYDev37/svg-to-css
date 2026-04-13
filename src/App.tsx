@@ -19,7 +19,11 @@ export default function App() {
           <div className="lg:col-span-6 space-y-6">
             <Dropzone onFilesLoad={addFiles} />
             <p className="text-zinc-400 max-w-xl mx-auto text-lg my-5">
+<<<<<<< HEAD
               ⚠️ Warning: File size limit is {AppConfig.MAX_FILE_SIZE_MB}MB.
+=======
+              ⚠️ Warning: Make sure to remove background of the image first to make sure it works well.
+>>>>>>> 25392500a2f89240156875805a56068773145246
             </p>
             {/* Uploaded icons */}
             {items.length > 0 && (
