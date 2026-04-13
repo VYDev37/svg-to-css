@@ -1,13 +1,9 @@
 import { useState, useCallback } from 'react';
-<<<<<<< HEAD
 import toast from 'react-hot-toast';
 
 import { createSVGDataURL, convertImageToSvg } from '../utils/svg';
 import { AppConfig } from '../../app.config';
 import { getUniqueName } from '../utils/file';
-=======
-import { createSVGDataURL, convertImageToSvg } from '../utils/svg';
->>>>>>> 25392500a2f89240156875805a56068773145246
 
 export interface SvgItem {
     id: string;
@@ -20,32 +16,18 @@ export interface SvgItem {
 export function useSvgConverter() {
     const [items, setItems] = useState<SvgItem[]>([]);
 
-<<<<<<< HEAD
     const handleSvgContent = (content: string, fileName: string, className: string) => {
-=======
-    const handleSvgContent = (content: string, fileName: string) => {
->>>>>>> 25392500a2f89240156875805a56068773145246
         if (!content) {
             console.error("Content is empty for: ", fileName);
             return;
         }
-<<<<<<< HEAD
-=======
-        const cleanName = fileName.replace(/\.(svg|png|jpe?g)$/i, '');
-        const defaultClass = `icon-${cleanName.replace(/\s+/g, '-').toLowerCase()}`;
->>>>>>> 25392500a2f89240156875805a56068773145246
 
         try {
             const dataUrl = createSVGDataURL(content);
             setItems(prev => [...prev, {
                 id: crypto.randomUUID(),
-<<<<<<< HEAD
                 fileName,
                 className,
-=======
-                fileName: `${cleanName}.svg`,
-                className: defaultClass,
->>>>>>> 25392500a2f89240156875805a56068773145246
                 dataUrl,
                 originalSvg: content
             }]);
@@ -54,7 +36,6 @@ export function useSvgConverter() {
         }
     };
     const addFiles = useCallback((files: File[]) => {
-<<<<<<< HEAD
         const currentNames = items.map(item => item.fileName);
         Array.from(files).forEach(async (file) => {
             if (file.size > AppConfig.MAX_FILE_SIZE_MB * 1024 * 1024) {
@@ -96,21 +77,6 @@ export function useSvgConverter() {
                         reader.readAsText(file);
                     });
                     handleSvgContent(content, uniqueFileName, uniqueClassName);
-=======
-        Array.from(files).forEach(async (file) => {
-            const isSvg = file.type === "image/svg+xml" || file.name.endsWith('.svg');
-            const isImage = file.type.match(/image\/(png|jpe?g)/);
-
-            if (isSvg) {
-                try {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        if (typeof event.target?.result === 'string') {
-                            handleSvgContent(event.target.result, file.name);
-                        }
-                    };
-                    reader.readAsText(file);
->>>>>>> 25392500a2f89240156875805a56068773145246
                 } catch (err) {
                     console.error(err);
                 }
@@ -118,11 +84,7 @@ export function useSvgConverter() {
             else if (isImage) {
                 try {
                     const svgContent = await convertImageToSvg(file);
-<<<<<<< HEAD
                     handleSvgContent(svgContent, uniqueFileName, uniqueClassName);
-=======
-                    handleSvgContent(svgContent, file.name);
->>>>>>> 25392500a2f89240156875805a56068773145246
                 } catch (err) {
                     console.error("Tracing failed for image: ", err);
                 }
