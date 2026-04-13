@@ -13,6 +13,9 @@ export default function App() {
           {/* Files DropZone & List Items */}
           <div className="lg:col-span-6 space-y-6">
             <Dropzone onFilesLoad={addFiles} />
+            <p className="text-zinc-400 max-w-xl mx-auto text-lg my-5">
+              ⚠️ Warning: Make sure to remove background of the image first to make sure it works well.
+            </p>
             {/* Uploaded icons */}
             {items.length > 0 && (
               <div className="space-y-3 mt-6">
