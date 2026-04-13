@@ -1,12 +1,17 @@
+import { Toaster } from 'react-hot-toast';
+
 import { Dropzone, Header, CodeOutput, UsageExample } from './components';
 import { useSvgConverter } from './hooks';
 import { Trash2 } from 'lucide-react';
+
+import { AppConfig } from "../app.config";
 
 export default function App() {
   const { items, addFiles, updateClassName, removeItem } = useSvgConverter();
 
   return (
     <div className="min-h-screen p-6 md:p-12 lg:p-24 flex flex-col items-center bg-zinc-950 text-zinc-100">
+      <Toaster position="bottom-right" reverseOrder={false} />
       <div className="max-w-5xl w-full space-y-8">
         <Header />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -14,7 +19,7 @@ export default function App() {
           <div className="lg:col-span-6 space-y-6">
             <Dropzone onFilesLoad={addFiles} />
             <p className="text-zinc-400 max-w-xl mx-auto text-lg my-5">
-              ⚠️ Warning: Make sure to remove background of the image first to make sure it works well.
+              ⚠️ Warning: File size limit is {AppConfig.MAX_FILE_SIZE_MB}MB.
             </p>
             {/* Uploaded icons */}
             {items.length > 0 && (

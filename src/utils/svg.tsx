@@ -19,6 +19,8 @@ export function convertToInline(svgContent: string, isJsx: boolean = false, defa
         .replace(/<\?xml.*\?>/gi, "")
         .replace(/(\r\n|\n|\r)/gm, "")
         .replace(/\t/g, " ")
+        .replace(/<desc[^>]*>[\s\S]*?<\/desc>/gi, "")
+        .replace(/<title[^>]*>[\s\S]*?<\/title>/gi, "")
         .replace(/>\s+</g, "><")
         .trim();
 
