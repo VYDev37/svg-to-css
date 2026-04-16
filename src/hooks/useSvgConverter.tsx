@@ -82,7 +82,7 @@ export function useSvgConverter() {
 
         const results = await Promise.all(promises);
         const newItems: SvgItem[] = results
-            .filter((result: AddFilesCallbackResult) => result && result.content)
+            .filter((result): result is AddFilesCallbackResult => result !== null && result.content !== undefined)
             .map(({ content, uniqueFileName, uniqueClassName }) => {
                 const dataUrl = createSVGDataURL(content);
                 return {
