@@ -18,9 +18,12 @@ export default function App() {
           {/* Files DropZone & List Items */}
           <div className="lg:col-span-6 space-y-6">
             <Dropzone onFilesLoad={addFiles} />
-            <p className="text-zinc-400 max-w-xl mx-auto text-lg my-5">
-              ⚠️ Warning: File size limit is {AppConfig.MAX_FILE_SIZE_MB}MB.
-            </p>
+            <div className="flex flex-col gap-2 text-zinc-400 text-sm sm:text-base my-6">
+              <p>⚠️ Maximum file size: <b>{AppConfig.MAX_FILE_SIZE_MB}MB</b></p>
+              <p className="opacity-70 text-xs sm:text-sm">
+                Beta version: Some image (in JPG, JPEG, PNG) conversions may yield unexpected results.
+              </p>
+            </div>
             {/* Uploaded icons */}
             {items.length > 0 && (
               <div className="space-y-3 mt-6">

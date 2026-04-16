@@ -13,38 +13,25 @@ export interface SvgItem {
     originalSvg: string;
 }
 
+interface AddFilesCallbackResult {
+    content: string;
+    uniqueFileName: string;
+    uniqueClassName: string;
+}
+
 export function useSvgConverter() {
     const [items, setItems] = useState<SvgItem[]>([]);
 
-    const handleSvgContent = (content: string, fileName: string, className: string) => {
-        if (!content) {
-            console.error("Content is empty for: ", fileName);
-            return;
-        }
-
-        try {
-            const dataUrl = createSVGDataURL(content);
-            setItems(prev => [...prev, {
-                id: crypto.randomUUID(),
-                fileName,
-                className,
-                dataUrl,
-                originalSvg: content
-            }]);
-        } catch (err) {
-            console.error("Failed to parse SVG: ", err);
-        }
-    };
-    const addFiles = useCallback((files: File[]) => {
+    const addFiles = useCallback(async (files: File[]) => {
         const currentNames = items.map(item => item.fileName);
-        Array.from(files).forEach(async (file) => {
+        const promises = Array.from(files).map(async (file): Promise<AddFilesCallbackResult | null> => {
             if (file.size > AppConfig.MAX_FILE_SIZE_MB * 1024 * 1024) {
                 toast.error(`Failed to upload: ${file.name} exceeded ${AppConfig.MAX_FILE_SIZE_MB}MB!`, {
                     style: {
                         borderRadius: '10px', background: '#333', color: '#fff'
                     }
                 });
-                return;
+                return null;
             }
 
             if (file.size === 0) {
@@ -53,7 +40,7 @@ export function useSvgConverter() {
                         borderRadius: '10px', background: '#333', color: '#fff'
                     }
                 });
-                return;
+                return null;
             }
 
             const isSvg = file.type === "image/svg+xml" || file.name.endsWith('.svg');
@@ -76,20 +63,40 @@ export function useSvgConverter() {
                         reader.onerror = reject;
                         reader.readAsText(file);
                     });
-                    handleSvgContent(content, uniqueFileName, uniqueClassName);
+                    return { content, uniqueFileName, uniqueClassName };
                 } catch (err) {
                     console.error(err);
                 }
             }
             else if (isImage) {
                 try {
-                    const svgContent = await convertImageToSvg(file);
-                    handleSvgContent(svgContent, uniqueFileName, uniqueClassName);
+                    const content = await convertImageToSvg(file);
+                    return { content, uniqueFileName, uniqueClassName };
                 } catch (err) {
                     console.error("Tracing failed for image: ", err);
                 }
             }
+
+            return null;
         });
+
+        const results = await Promise.all(promises);
+        const newItems: SvgItem[] = results
+            .filter((result: AddFilesCallbackResult) => result && result.content)
+            .map(({ content, uniqueFileName, uniqueClassName }) => {
+                const dataUrl = createSVGDataURL(content);
+                return {
+                    id: crypto.randomUUID(),
+                    fileName: uniqueFileName,
+                    className: uniqueClassName,
+                    dataUrl,
+                    originalSvg: content
+                };
+            });
+
+        if (newItems.length > 0) {
+            setItems(prev => [...prev, ...newItems]);
+        }
     }, [items]);
 
     const updateClassName = (id: string, newClass: string) => {

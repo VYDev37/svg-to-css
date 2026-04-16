@@ -1,6 +1,8 @@
 # 🎨 SVG to CSS
 > A high-performance utility to transform raw SVGs into production-ready CSS, JSX, and HTML.
 
+*Demo Live: [svg-to-css-kohl.vercel.app](https://svg-to-css-kohl.vercel.app)*
+
 [![Vite](https://img.shields.io/badge/Vite-8.0.8-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
 [![React](https://img.shields.io/badge/React-19.2.5-61DAFB?style=flat-square&logo=react)](https://react.dev/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-4.2.2-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
@@ -10,7 +12,9 @@
 ---
 
 ## ⚡ Overview
-**SVG to CSS** is a minimalist web utility built to eliminate the friction of converting SVG files into various development formats. It handles everything from **CSS DataURLs** and **Tailwind-ready snippets** to **optimized React JSX**, ensuring your assets are clean and fully customizable.
+**SVG to CSS (Beta)** is a minimalist web utility built to eliminate the friction of converting SVG files into various development formats. It handles everything from **CSS DataURLs** and **Tailwind-ready snippets** to **optimized React JSX**, ensuring your assets are clean and fully customizable.
+
+*⚠️ Warning: Some image (in JPG, JPEG, PNG) conversions may yield unexpected results.*
 
 ## 🚀 Key Features
 - **✨ Multi-Format Engine** – Support for Vanilla CSS, TailwindCSS, Bootstrap, JSX, and HTML5.

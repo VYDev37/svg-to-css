@@ -61,7 +61,7 @@ export const convertImageToSvg = async (file: File): Promise<string> => {
             lineFilter: true
         });
 
-        return svgString
+        return svgString;
     } catch (err) {
         console.error(err);
         throw err;
